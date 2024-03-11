@@ -1,5 +1,6 @@
 from flask import Flask
 from markupsafe import escape
+from flask import render_template
 
 app = Flask(__name__)
 
@@ -9,9 +10,17 @@ def hello_world():
     return "<p>Hello, world!</p>"
 
 
-@app.route("/hello/<name>")
-def hello(name):
-    return f"<p>Hello, {escape(name)}!</p>"
+# @app.route("/hello/<name>")
+# def hello(name):
+#     return f"<p>Hello, {escape(name)}!</p>"
+
+# Rendering templates
+
+@app.route('/hello/')
+@app.route('/hello/<name>')
+def hello(name=None):
+    return render_template(['hello.html'],
+                           name=name)
 
 
 @app.route('/post/<int:post_id>')
